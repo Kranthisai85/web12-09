@@ -1,0 +1,66 @@
+<!DOCTYPE html><html>
+<meta name="viewport" content="width=device-width">
+<head><title>RazorPay Web Payment</title></head>
+<body>
+   <!-- Event snippet for Purchase conversion page -->
+<script>
+   var queryString1 = window.location.search;
+   console.log(queryString1);
+   var urlParams1 = new URLSearchParams(queryString1);
+   var price1 = urlParams1.get('price')
+   gtag('event', 'conversion', {
+'send_to': 'AW-10948855090/KQpPCKOEg9ADELKK6eQo',
+'value': price1,
+'currency': 'INR',
+'transaction_id': ''
+});
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+      const queryString = window.location.search;
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      const userName = urlParams.get('name')
+      const price = urlParams.get('price')
+      const email = urlParams.get('email')
+      const phone = urlParams.get('phone')
+      const key = urlParams.get('key')
+       var options = {
+         "key": "rzp_test_Z6wQLD4lVJgxho",
+          "amount": price, "currency": "INR",
+          "name": "BulucKart",
+          "description": "Groceries",
+          "image": "https://i.ibb.co/bFTD8t0/logo.png",
+          "handler": function (response){
+             window.parent.postMessage("SUCCESS","*");      //2
+             alert(response.razorpay_payment_id);
+            //  alert(response.razorpay_order_id);
+            //  alert(response.razorpay_signature)
+          },
+          "prefill": {
+             "name": userName,
+             "email": email,
+             "contact": phone
+           },
+           "notes": {
+             "address": "Autofy"
+          },
+          "theme": {
+             "color": "#DF0145"
+          },
+          "modal": {
+            "ondismiss": function(){
+               window.parent.postMessage("MODAL_CLOSED","*");   //3
+            }
+          }
+       };
+
+       var rzp1 = new Razorpay(options);
+       window.onload = function(e){  //1
+          rzp1.open();
+          e.preventDefault();
+       }
+
+     </script>
+</body>
+</html>
